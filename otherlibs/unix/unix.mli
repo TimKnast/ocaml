@@ -256,6 +256,11 @@ val openfile : string -> open_flag list -> file_perm -> file_descr
    permissions to give to the file if it is created (see
    {!umask}). Return a file descriptor on the named file. *)
 
+val openfileat : dir_handle -> string -> open_flag list -> file_perm -> file_descr
+(** Open the named file in the directory referred to by the first argument with the given flags. Fourth argument is the
+   permissions to give to the file if it is created (see
+   {!umask}). Return a file descriptor on the named file. *)
+
 val close : file_descr -> unit
 (** Close a file descriptor. *)
 
@@ -509,6 +514,9 @@ type dir_handle
 
 val opendir : string -> dir_handle
 (** Open a descriptor on a directory *)
+
+val fdopendir : dir_handle -> dir_handle
+(** Open a descriptor on a directory using an existing directory handle *)
 
 val readdir : dir_handle -> string
 (** Return the next entry in a directory.
