@@ -372,7 +372,10 @@ external chroot : string -> unit = "unix_chroot"
 
 type dir_handle
 
+external openatfile : dir_handle -> string -> open_flag list -> file_perm -> file_descr
+           = "unix_openat"
 external opendir : string -> dir_handle = "unix_opendir"
+external fdopendir : dir_handle -> string -> dir_handle = "unix_fdopendir"
 external readdir : dir_handle -> string = "unix_readdir"
 external rewinddir : dir_handle -> unit = "unix_rewinddir"
 external closedir : dir_handle -> unit = "unix_closedir"
