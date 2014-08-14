@@ -31,16 +31,16 @@ CAMLprim value unix_fdopendir(value vd)
 {
   CAMLparam1(vd);
   DIR * d;
+  DIR * vd_d;
   value res;
 
-  d = DIR_Val(vd);
-  if (d == (DIR *) NULL) unix_error(EBADF, "fdopendir", Nothing);
+  vd_d = DIR_Val(vd);
+  if (vd_d == (DIR *) NULL) unix_error(EBADF, "fdopendir", Nothing);
 
   caml_enter_blocking_section();
-  d = fdopendir((DIR *) vd);
+  d = fdopendir((DIR *) vd_d);
   caml_leave_blocking_section();
-  caml_stat_free(p);
-  if (d == (DIR *) NULL) uerror("fdopendir", vd); // TODO look up def of uerror - are we passing vd to a char * ?
+  if (d == (DIR *) NULL) uerror("fdopendir", Nothing); // TODO look up def of uerror - are we passing vd to a char * ? -- changed to Nothing
   res = alloc_small(1, Abstract_tag);
   DIR_Val(res) = d;
   CAMLreturn(res);
